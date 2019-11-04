@@ -15,13 +15,10 @@ import sdp.injector.annotation.InjectIn;
 
 public class DependencyInjector {
 
-	public static boolean isNotInjected = true;
-
 	@SuppressWarnings("rawtypes")
 	private static Map<Class, Object> container = new HashMap<>();
 
 	public static void inject(Object obj) {
-		isNotInjected = false;
 		container.put(obj.getClass(), obj);
 		createInstanceOfAnnotatedClass();
 		createInstanceFromAnnotatedMethod();

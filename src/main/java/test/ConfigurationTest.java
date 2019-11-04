@@ -7,7 +7,7 @@ import sdp.injector.annotation.InjectFrom;
 public class ConfigurationTest {
 
 	@Config
-	private String test() {
+	public String test() {
 		System.out.println("creating configuration bean.....");
 		return null;
 	}

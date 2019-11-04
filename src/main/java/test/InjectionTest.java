@@ -9,9 +9,7 @@ import sdp.injector.scanner.DependencyInjector;
 public class InjectionTest {
 
 	{
-		if (DependencyInjector.isNotInjected) {
-			DependencyInjector.inject(this);
-		}
+		DependencyInjector.inject(this);
 	}
 
 	@Inject
