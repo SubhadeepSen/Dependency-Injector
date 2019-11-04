@@ -12,6 +12,7 @@ import sdp.injector.annotation.Config;
 import sdp.injector.annotation.Inject;
 import sdp.injector.annotation.InjectFrom;
 import sdp.injector.annotation.InjectIn;
+import sdp.injector.util.InjectorLogger;
 
 public class DependencyInjector {
 
@@ -20,6 +21,7 @@ public class DependencyInjector {
 
 	public static void inject(Object obj) {
 		container.put(obj.getClass(), obj);
+		InjectorLogger.info("[Bean created] : " + obj.getClass().getCanonicalName());
 		createInstanceOfAnnotatedClass();
 		createInstanceFromAnnotatedMethod();
 		injectInstanceToAnnotatedFields();
@@ -35,18 +37,16 @@ public class DependencyInjector {
 					try {
 						if (!container.containsKey(cls)) {
 							container.put(cls, cls.newInstance());
-							// TODO: use logger here for bean creation
+							InjectorLogger.info("[Bean created] : " + cls.getCanonicalName());
 						}
 					} catch (InstantiationException | IllegalAccessException e) {
-						// TODO: use logger here to log error message
-						System.err.println("Failed to create instance of " + cls.getCanonicalName()
+						InjectorLogger.error("Failed to create instance of " + cls.getCanonicalName()
 								+ ", make sure your class has public no-arg constructor.");
 					}
 				}
 			});
 		} catch (ClasspathScanningException e) {
-			// TODO: use logger here to log error message
-			System.err.println(e.getMessage());
+			InjectorLogger.error(e.getMessage());
 		}
 	}
 
@@ -60,8 +60,7 @@ public class DependencyInjector {
 				for (Method method : methods) {
 					if (method.isAnnotationPresent(Config.class)) {
 						if (method.getReturnType().getName().equals("void")) {
-							// TODO: use logger here to log error message
-							System.err.println("Failed to create configuration bean from declared method in "
+							InjectorLogger.error("Failed to create configuration bean from declared method in "
 									+ classObjectEntry.getKey().getName() + ": invalid return type: " + method.getName()
 									+ "() ===> " + method.getReturnType().getName());
 						}
@@ -69,16 +68,16 @@ public class DependencyInjector {
 							if (!configBeans.containsKey(method.getReturnType().getClass())) {
 								configBeans.put(method.getReturnType().getClass(),
 										method.invoke(classObjectEntry.getValue()));
-								// TODO: use logger here for config bean creation
+								InjectorLogger.info("[Configuration bean created] : "
+										+ method.getReturnType().getClass().getCanonicalName());
 							}
 
 						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-							// TODO: use logger here to log error message
 							if (e instanceof IllegalAccessException) {
-								System.err.println("Failed to create configuration bean from declared method in "
+								InjectorLogger.error("Failed to create configuration bean from declared method in "
 										+ classObjectEntry.getKey().getName() + ": " + method.getName() + "()");
 							} else {
-								System.err.println(e.getMessage());
+								InjectorLogger.error(e.getMessage());
 							}
 						}
 					}
@@ -106,16 +105,18 @@ public class DependencyInjector {
 						field.setAccessible(true);
 						if (container.containsKey(fieldClassType)) {
 							field.set(container.get(classObjectEntry.getKey()), container.get(fieldClassType));
-							// TODO: use logger here to inject dependency
+							InjectorLogger.info("[Bean injected] : " + fieldClassType.getCanonicalName() + " >> "
+									+ container.get(classObjectEntry.getKey()).getClass().getCanonicalName());
 						} else {
 							fieldBeans.put(fieldClassType, fieldClassType.newInstance());
+							InjectorLogger.info("[Bean created] : " + fieldClassType.getCanonicalName());
 							field.set(container.get(classObjectEntry.getKey()), fieldBeans.get(fieldClassType));
-							// TODO: use logger here to inject dependency
+							InjectorLogger.info("[Bean injected] : " + fieldClassType.getCanonicalName() + " >> "
+									+ container.get(classObjectEntry.getKey()).getClass().getCanonicalName());
 						}
 						field.setAccessible(false);
 					} catch (InstantiationException | IllegalAccessException e) {
-						// TODO: use logger here to log error message
-						System.err.println("Failed to create instance of " + fieldClassType.getCanonicalName()
+						InjectorLogger.error("Failed to create instance of " + fieldClassType.getCanonicalName()
 								+ ", make sure your class has public no-arg constructor.");
 					}
 				}
