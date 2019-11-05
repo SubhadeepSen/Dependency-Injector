@@ -25,7 +25,7 @@ public class DependencyInjector {
 		createInstanceOfAnnotatedClass();
 		createInstanceFromAnnotatedMethod();
 		injectInstanceToAnnotatedFields();
-		return;
+		container.clear();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
