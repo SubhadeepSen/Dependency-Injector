@@ -1,7 +1,7 @@
 package test;
 
-import sdp.injector.annotation.Config;
-import sdp.injector.annotation.InjectFrom;
+import sdp.injctr.anntn.Config;
+import sdp.injctr.anntn.InjectFrom;
 
 @InjectFrom
 public class ConfigurationTest {

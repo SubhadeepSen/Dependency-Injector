@@ -1,9 +1,9 @@
 package test;
 
-import sdp.injector.annotation.Inject;
-import sdp.injector.annotation.InjectIn;
-import sdp.injector.scanner.ClasspathScanningException;
-import sdp.injector.scanner.DependencyInjector;
+import sdp.injctr.anntn.Inject;
+import sdp.injctr.anntn.InjectIn;
+import sdp.injctr.scnnr.ClasspathScanningException;
+import sdp.injctr.scnnr.DependencyInjector;
 
 @InjectIn
 public class InjectionTest {

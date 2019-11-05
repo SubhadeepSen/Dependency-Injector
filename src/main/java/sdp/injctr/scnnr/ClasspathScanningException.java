@@ -1,4 +1,4 @@
-package sdp.injector.scanner;
+package sdp.injctr.scnnr;
 
 public class ClasspathScanningException extends RuntimeException {
 

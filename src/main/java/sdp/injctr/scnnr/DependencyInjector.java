@@ -1,4 +1,4 @@
-package sdp.injector.scanner;
+package sdp.injctr.scnnr;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import sdp.injector.annotation.Config;
-import sdp.injector.annotation.Inject;
-import sdp.injector.annotation.InjectFrom;
-import sdp.injector.annotation.InjectIn;
-import sdp.injector.util.InjectorLogger;
+import sdp.injctr.anntn.Config;
+import sdp.injctr.anntn.Inject;
+import sdp.injctr.anntn.InjectFrom;
+import sdp.injctr.anntn.InjectIn;
+import sdp.injctr.util.InjectorLogger;
 
 public class DependencyInjector {
 

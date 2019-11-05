@@ -1,4 +1,4 @@
-package sdp.injector.annotation;
+package sdp.injctr.anntn;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,14 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A field level annotation which helps to inject required bean and should be
- * used inside a class annotated with <b>@InjectIn</b>
+ * A method level annotation to create configuration bean and should be used
+ * inside a class annotated with <b> @InjectFrom </b>
  * 
  * @author Subhadeep Sen
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Inject {
+public @interface Config {
 
 }

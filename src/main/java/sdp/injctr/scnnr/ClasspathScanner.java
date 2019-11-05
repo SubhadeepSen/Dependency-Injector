@@ -1,4 +1,4 @@
-package sdp.injector.scanner;
+package sdp.injctr.scnnr;
 
 import java.io.File;
 import java.io.FilenameFilter;

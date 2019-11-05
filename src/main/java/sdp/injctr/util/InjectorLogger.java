@@ -1,4 +1,4 @@
-package sdp.injector.util;
+package sdp.injctr.util;
 
 public final class InjectorLogger {
 

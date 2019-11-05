@@ -1,4 +1,4 @@
-package sdp.injector.annotation;
+package sdp.injctr.anntn;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
