@@ -21,7 +21,7 @@ public class DependencyInjector {
 
 	public static void inject(Object obj) {
 		container.put(obj.getClass(), obj);
-		InjectorLogger.info("[Bean created] : " + obj.getClass().getCanonicalName());
+		InjectorLogger.info("[Bean created ] : " + obj.getClass().getCanonicalName());
 		createInstanceOfAnnotatedClass();
 		createInstanceFromAnnotatedMethod();
 		injectInstanceToAnnotatedFields();
@@ -37,7 +37,7 @@ public class DependencyInjector {
 					try {
 						if (!container.containsKey(cls)) {
 							container.put(cls, cls.newInstance());
-							InjectorLogger.info("[Bean created] : " + cls.getCanonicalName());
+							InjectorLogger.info("[Bean created ] : " + cls.getCanonicalName());
 						}
 					} catch (InstantiationException | IllegalAccessException e) {
 						InjectorLogger.error("Failed to create instance of " + cls.getCanonicalName()
@@ -68,7 +68,7 @@ public class DependencyInjector {
 							if (!configBeans.containsKey(method.getReturnType().getClass())) {
 								configBeans.put(method.getReturnType().getClass(),
 										method.invoke(classObjectEntry.getValue()));
-								InjectorLogger.info("[Configuration bean created] : "
+								InjectorLogger.info("[Config bean  ] : "
 										+ method.getReturnType().getClass().getCanonicalName());
 							}
 
@@ -109,7 +109,7 @@ public class DependencyInjector {
 									+ container.get(classObjectEntry.getKey()).getClass().getCanonicalName());
 						} else {
 							fieldBeans.put(fieldClassType, fieldClassType.newInstance());
-							InjectorLogger.info("[Bean created] : " + fieldClassType.getCanonicalName());
+							InjectorLogger.info("[Bean created ] : " + fieldClassType.getCanonicalName());
 							field.set(container.get(classObjectEntry.getKey()), fieldBeans.get(fieldClassType));
 							InjectorLogger.info("[Bean injected] : " + fieldClassType.getCanonicalName() + " >> "
 									+ container.get(classObjectEntry.getKey()).getClass().getCanonicalName());
